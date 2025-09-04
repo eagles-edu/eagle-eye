@@ -6,7 +6,6 @@ tmp/
 .env
 node_modules/
 config2.toml
-README.md
 config-code-settings.json
 .vscode/extensions.json
 .vscode/settings.json
