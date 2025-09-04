@@ -1,0 +1,15 @@
+# filepath: .gitignore
+*.bak
+*.log
+tmp/
+*.swp
+.env
+node_modules/
+config2.toml
+README.md
+config-code-settings.json
+.vscode/extensions.json
+.vscode/settings.json
+.history-memo/2025-09-04.md
+.zencoder/rules/repo.md
+package-lock.json

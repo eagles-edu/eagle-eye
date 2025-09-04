@@ -1,0 +1,66 @@
+# EagleEye Domain/URL migration tool
+# Version 0.1.0
+# 14.08.2025
+# Format: OLD => NEW
+# Order: most specific → least specific (i.e.. place longest hostnames first; place subdomains before root-only domain)
+
+# Tip: AVOID double-changes by placing longer/with-www/with-subdomain BEFORE root-domain
+
+# ========= Legacy → Canonical (example-old.com → example.new.com) =========
+
+# subdomain + domain + www first
+https://www.sub1.example-old.com => https://www.sub1.example.new.com
+http://www.sub1.example-old.com  => https://www.sub1.example.new.com
+
+# subdomain + domain (non-www)
+https://sub1.example-old.com      => https://sub1.example.new.com
+http://sub1.example-old.com       => https://sub1.example.new.com
+
+# www + root domain
+https://www.example-old.com         => https://www.example.new.com
+http://www.example-old.com          => https://www.example.new.com
+
+# root domain (no-www)
+https://example-old.com             => https://example.new.com
+http://example-old.com              => https://example.new.com
+
+
+# ========= Enforce HTTPS on the NEW canonical hosts =========
+
+# subdomain + domain (www before non-www) - enforce https
+http://www.sub1.example.new.com  => https://www.sub1.example.new.com
+http://sub1.example.new.com      => https://sub1.example.new.com
+
+# root domain (www before non-www) - enforce https
+http://www.example.new.com          => https://www.example.new.com
+http://example.new.com              => https://example.new.com
+
+
+# ========= Handle scheme-less //HOST references (put AFTER all http/https) =========
+
+# legacy scheme-less → canonical https
+//www.sub1.example-old.com        => https://www.sub1.example.new.com
+//sub1.example-old.com            => https://sub1.example.new.com
+//www.example-old.com               => https://www.example.new.com
+//example-old.com                   => https://example.new.com
+
+# canonical scheme-less → canonical https
+//www.sub1.example.new.com       => https://www.sub1.example.new.com
+//sub1.example.new.com           => https://sub1.example.new.com
+//www.example.new.com               => https://www.example.new.com
+//example.new.com                   => https://example.new.com
+
+
+# ========= Optional variants (leave commented unless you need them) =========
+
+# Force remove www (global canonicalization):
+# https://www.example.new.com        => https://example.new.com
+# https://www.sub1.example.new.com => https://sub1.example.new.com
+
+# Migrate old subdomain to a new subdomain:
+# https://sub1.example.new.com     => https://library.example.new.com
+# https://www.sub1.example.new.com => https://library.example.new.com
+
+# CDN/static hosts:
+# http://cdn.example.new.com          => https://cdn.example.new.com
+# http://static.example.new.com       => https://static.example.new.com
