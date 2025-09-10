@@ -1,4 +1,5 @@
 # filepath: .gitignore
+.gitignore
 *.bak
 *.log
 tmp/
